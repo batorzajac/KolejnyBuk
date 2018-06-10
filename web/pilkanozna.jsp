@@ -4,6 +4,7 @@
     Author     : Edyta
 --%>
 
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -218,16 +219,17 @@
 
                  <ul class="list-group-item" style="background-color: #fff200; border: 0px; color:#343a40; border-color:#343a40; list-style-type: none; display: none;">
                      <%
-                         String query2 = "select nazwa from Region";
-                         Statement st2 = con.createStatement();
-                         ResultSet rs2 = st2.executeQuery(query2);
+                         
+                         PreparedStatement pst = con.prepareStatement("select r.nazwa, count(*) from Region r join Rozgrywki rg on r.id=rg.region_id join Dyscyplina d on d.id=rg.dyscyplina_id where d.nazwa=? group by r.nazwa order by count(*) desc;");
+                         pst.setString(1,rs1.getString("nazwa"));
+                         ResultSet rs2 = pst.executeQuery();
                          while (rs2.next()) {
                      %>  
 
 
                      <li>
                          <a href="#" class="list-group-item" style="background-color: #fff200; color: #343a40; ">
-                             <%= rs2.getString("nazwa")%>
+                             <%= (rs2.getString("nazwa")+" ("+rs2.getInt("count")+")")%>
                          </a>
                      </li>
                      <%
