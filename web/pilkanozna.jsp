@@ -4,7 +4,13 @@
     Author     : Edyta
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +22,7 @@
         <link rel="shortcut icon" href="https://i.imgur.com/7pcghN2.png"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+       
 
         <style>
             /* Make the image fully responsive */
@@ -49,31 +56,40 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.jsp">START</a>
-                        </li>
-
+                    
                         <li class="nav-item">
                             <a class="nav-link" href="zakladyBuk.jsp">ZAKŁADY BUKMACHERSKIE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="zaklZyw.jsp">ZAKŁADY NA ŻYWO</a>
+                            <a class="nav-link" href="zaklZyw.jsp">ZAŁADY NA ŻYWO</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="sportyWirt.jsp">SPORTY WIRTUALNE</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="platnosci.jsp">PŁATNOŚCI</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="onas.jsp">O NAS</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="logowanie.jsp" style="color:#fff200">LOGOWANIE</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="rejestracja.jsp" style="color:#fff200">REJESTRACJA</a>
                         </li>
+                        <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Player'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="panelGracz.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
+                            </li>                       
+                        </c:if>
+                            <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Editor'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="panelEdytor.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
+                            </li>                       
+                        </c:if>
+                            <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Admin'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="panelAdmin.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
+                            </li>                       
+                        </c:if>
+                        
+                        
 
 
                     </ul>
@@ -160,25 +176,88 @@
                     <!--   <h1 class="my-4"  >SPORTY</h1> -->
                 <div class="list-group">
                         <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">SPORTY</a>
+                        <!-- 
                         <a href="pilkanozna.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PIŁKA NOŻNA</a>
+                       
                         <a href="pilkareczna.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PIŁKA RĘCZNA</a>
                         <a href="koszykowka.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">KOSZYKÓWKA</a>
                         <a href="hokej.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">HOKEJ</a>
                         <a href="tennis.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">TENNIS</a>
                         <a href="baseball.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">BASEBALL</a>
+                        -->
+                        
+                      <!--  <div class="sidenav"> -->
+                 <!--   <button class="list-group-item"   style="background-color: #343a40; color:#fff200; border-color:#343a40; list-style-type: none;"></button> -->
+
+
+    
+
+
+                 <%
+                     ArrayList list = new ArrayList();
+                     ArrayList sublist = new ArrayList();
+                     try {
+                         Class.forName("org.postgresql.Driver");
+                         Connection con = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
+                 %>
+
+                 <%
+                     String query1 = "select * from Dyscyplina";
+                     Statement st1 = con.createStatement();
+                     ResultSet rs1 = st1.executeQuery(query1);
+
+                     while (rs1.next()) {
+
+
+                 %>
+
+                 <button class="list-group-item"   style="background-color: #343a40; color:#fff200; text-align: left; list-style-type: none;">
+                     <li><%= rs1.getString("nazwa")%>
+                         <span class="glyphicon glyphicon-chevron-down" aria-hidden="false"></span>
+                 </button>
+
+                 <ul class="list-group-item" style="background-color: #fff200; border: 0px; color:#343a40; border-color:#343a40; list-style-type: none; display: none;">
+                     <%
+                         String query2 = "select nazwa from Region";
+                         Statement st2 = con.createStatement();
+                         ResultSet rs2 = st2.executeQuery(query2);
+                         while (rs2.next()) {
+                     %>  
+
+
+                     <li>
+                         <a href="#" class="list-group-item" style="background-color: #fff200; color: #343a40; ">
+                             <%= rs2.getString("nazwa")%>
+                         </a>
+                     </li>
+                     <%
+                         }
+                     %>
+                 </ul>
+                </li>
+
+
+                <%
+                    }
+                %>
+</ul>
+
+<%
+    } catch (Exception e1) {
+    }
+%>
+                        
+                        
 
                     </div>
-                    <br>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">NAGŁÓWEK 2</a>
-                        <a href="pomoc.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">POMOC</a>
+                      <br><br>
+                     <div class="list-group">
+                        <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">INFORMACJE</a>
+                        <a href="pomoc.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">KONTAKT</a>
                         <a href="regulamin.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">REGULAMIN</a>
+                        <a href="platnosci.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PŁATNOŚCI</a>
                         <a href="promocje.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PROMOCJE</a>
                         <a href="statystyki.jps" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">STATYSTYKI</a>
-                    </div>
-                    <br>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">NAGŁÓWEK 3</a>
                         <a href="sprzaklad.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">SPRAWDŹ ZAKŁAD</a>
                         <a href="wyiki.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">WYNIKI</a>
 
@@ -294,6 +373,28 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+        
+        
+  <script type="text/javascript"> 
+        var dropdown = document.getElementsByClassName("list-group-item");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+        
+     </script>   
+        
+        
+        
 
 
         <!-- Footer -->
