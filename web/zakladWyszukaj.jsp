@@ -54,7 +54,7 @@
 
     </head>
 
-    <body style="background-color:#000647;">
+    <body style="background-image: linear-gradient(to right, darkred , darkgrey,darkred,darkgrey,darkred);">
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -122,9 +122,9 @@
                                         <%=":  " + session.getAttribute("user_name") + " "%>
                                 </button>
                                     <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
-                                        <a class="dropdown-item" href="AdresAdmin.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Adresy </a>
-                                        <a class="dropdown-item" href="RozgrywkiAdmin.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Rozgrywki </a>
-                                        <a class="dropdown-item" href="WariantZdarzeniaAdmin.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Warianty Zdarzeń </a>
+                                        <a class="dropdown-item" href="adminWariant.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Warianty </a>
+                                        <a class="dropdown-item" href="adminWyd.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Wydarzenia </a>
+                                        
 
                                     </div>
                                 </div>
@@ -146,9 +146,8 @@
                                         <%=":  " + session.getAttribute("user_name") + " "%>
                                 </button>
                                     <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> zarządzaj... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> zarządzaj... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px;"> zarządzaj...   </a>
+                                        <a class="dropdown-item" href="adminWyd.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Wydarzenia </a>
+                                      
 
                                     </div>
                                 </div>
@@ -171,9 +170,12 @@
                                         <%=":  " + session.getAttribute("user_name") + " "%>
                                 </button>
                                     <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> zarządzaj... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> zarządzaj... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px;"> zarządzaj...   </a>
+                                        <% 
+                                            String kon=session.getAttribute("konto").toString();
+                                            Double kont=Double.parseDouble(kon);
+                                            String konReady=String.format("%.2f", kont);%>
+                                        <a class="dropdown-item"   style="background-color:#343a40; border:0px; color:#FFF200; text-align: left">STAN KONTA: <%= konReady%> </a>
+                                
 
                                     </div>
                                 </div>
@@ -207,12 +209,16 @@
                                 <%                         if (role!=0) {%>
                                
                                       <div class="dropdown">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/OEVzkTy.png" style="width:16px; height:16px">  OPCJE 
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/OEVzkTy.png" style="width:16px; height:16px">  KONTO 
                                   </button>
                                     <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: center"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px; float: left"> historia... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: center"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px; float: left"> zarządzaj... </a>
-                                        <a class="dropdown-item" href="#"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: center"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px; float: left""> zarządzaj...   </a><hr style="border-color: white">
+                                            <% 
+                                            String kon=session.getAttribute("konto").toString();
+                                            Double kont=Double.parseDouble(kon);
+                                            String konReady=String.format("%.2f", kont);%>
+                                        <a class="dropdown-item"   style="background-color:#343a40; border:0px; color:#FFF200; text-align: left">STAN KONTA: <%= konReady%> </a>
+										<a class="dropdown-item" href="historiaKupon.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"> Historia zakładów</a>
+					   <a class="dropdown-item" href="AdresAdmin.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"> Zmień adres </a><hr style="border-color: white">
                                         <a class="dropdown-item" href="wyloguj.jsp" style="background-color:#343a40; border:0px; color:white; font-weight: bold; text-align: center">WYLOGUJ  <img src="https://i.imgur.com/wTK8PNF.png" style="width:16px; height:16px">  </a>
 
                                     </div>
@@ -357,7 +363,7 @@
                                 Connection con2 = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
                               
                                 
-                                PreparedStatement psttt = con2.prepareStatement("select w.id as wid, w.nazwa as wnazwa, rg.nazwa as rgnazwa, d.nazwa as dnazwa,rg.id as rgid, w.data_wydarzenia from Wydarzenie w join Rozgrywki rg on  rg.id=w.rozgrywki_id join Dyscyplina d on d.id=rg.dyscyplina_id where rg.id=? order by d.id, rg.id,w.data_wydarzenia ");
+                                PreparedStatement psttt = con2.prepareStatement("select w.id as wid, w.nazwa as wnazwa, rg.nazwa as rgnazwa, d.nazwa as dnazwa,rg.id as rgid, w.data_wydarzenia, w.status as wstatus from Wydarzenie w join Rozgrywki rg on  rg.id=w.rozgrywki_id join Dyscyplina d on d.id=rg.dyscyplina_id where rg.id=? order by d.id, rg.id,w.data_wydarzenia ");
                             psttt.setInt(1, idRozg);
                             ResultSet rs4 = psttt.executeQuery();
                     
@@ -370,7 +376,8 @@
                             int fecderozg=2;
                             String erozg="";
         while (rs4.next()) {
-
+if(rs4.getString("wstatus").equals("aktywne"))
+                                {
                 wydList.add(new Wyd(rs4.getString("wnazwa"), rs4.getString("dnazwa"), rs4.getString("rgnazwa"), rs4.getString("data_wydarzenia"), rs4.getInt("wid")));
 
                 if (!erozg.equals(rs4.getString("rgnazwa"))) {
@@ -415,7 +422,7 @@
                     </form>
                              
                     <%
-                                }%></div></div><%
+                                }}%></div></div><%
                 }catch (Exception e1) {
                             }
                     

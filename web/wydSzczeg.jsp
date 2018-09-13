@@ -47,7 +47,7 @@
 
     </head>
 
-    <body style="background-color:#000647;">
+    <body style="background-image: linear-gradient(to right, darkred , darkgrey,darkred,darkgrey,darkred);">
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -58,40 +58,172 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-
+                    
                         <li class="nav-item">
-                            <a class="nav-link" href="zakladyBuk.jsp">ZAKŁADY BUKMACHERSKIE</a>
+                            <a class="nav-link" href="pilkanozna.jsp">ZAKŁADY BUKMACHERSKIE</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="zaklZyw.jsp">ZAŁADY NA ŻYWO</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="sportyWirt.jsp">SPORTY WIRTUALNE</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="logowanie.jsp" style="color:#fff200">LOGOWANIE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="rejestracja.jsp" style="color:#fff200">REJESTRACJA</a>
-                        </li>
-                        <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Player'}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="panelGracz.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
-                            </li>                       
-                        </c:if>
-                        <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Editor'}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="panelEdytor.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
-                            </li>                       
-                        </c:if>
-                        <c:if test = "${pageContext.session.getAttribute(pageContext.request.getAttribute('userName')) eq 'Admin'}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="panelAdmin.jsp" style="color:#fff200">Witaj "${pageContext.request.getAttribute("userName")}"</a>
-                            </li>                       
-                        </c:if>
+                        
+                            
+            
 
 
+                                <%  
+                                    try {
+                request.setCharacterEncoding("UTF-8");
+                String userid = request.getParameter("username");
+                String pwd = request.getParameter("password");
+                Class.forName("org.postgresql.Driver");
+                            Connection connection = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
+
+                PreparedStatement pst = connection.prepareStatement("SELECT login,uprawnienia_id,konto  FROM uzytkownik WHERE login=? AND haslo=?");
+                pst.setString(1, userid);
+                pst.setString(2, pwd);
+
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+
+                    session = request.getSession(false);
+                    session.setAttribute("user_name", rs.getString("login"));
+                    session.setAttribute("konto",rs.getString("konto"));
+                    session.setAttribute("user_role", rs.getString("uprawnienia_id"));
+                    
+                }
+                                    
+                                    
+                                    
+                                    String x;
+                                int role=0;
+                                    if(session.getAttribute("user_role")!=null)
+                                    { x = session.getAttribute("user_role").toString();
+                                     role = Integer.parseInt(x);}
+                                    
+                                    if (session.getAttribute("User") != null) {
+                                %> 
+
+
+                                <%}%>
+
+
+
+
+                                <%
+                                    if (role==1) {
+
+                                %> 
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/vg5baWU.png" style="width:16px; height:16px">  ADMINISTRATOR:  
+                                        <%=":  " + session.getAttribute("user_name") + " "%>
+                                </button>
+                                    <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
+                                        <a class="dropdown-item" href="adminWariant.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Warianty </a>
+                                        <a class="dropdown-item" href="adminWyd.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Wydarzenia </a>
+                                        
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <%}%>
+
+                                <%
+                                    
+                                    
+                                    if (role==2) {
+                                %> 
+
+
+                                     <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/vg5baWU.png" style="width:16px; height:16px">  MODERATOR:  
+                                        <%=":  " + session.getAttribute("user_name") + " "%>
+                                </button>
+                                    <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
+                                        <a class="dropdown-item" href="adminWyd.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"><img src="https://i.imgur.com/7NzFSkt.png" style="width:16px; height:16px"> Wydarzenia </a>
+                                      
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <%}%>
+                                
+                                
+                                <%
+                                    
+                                    
+                                    if (role==3) {
+                                %> 
+
+
+                                     <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/vg5baWU.png" style="width:16px; height:16px">  GRACZ:  
+                                        <%=":  " + session.getAttribute("user_name") + " "%>
+                                </button>
+                                    <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
+                                        <% 
+                                            String kon=session.getAttribute("konto").toString();
+                                            Double kont=Double.parseDouble(kon);
+                                            String konReady=String.format("%.2f", kont);%>
+                                        <a class="dropdown-item"   style="background-color:#343a40; border:0px; color:#FFF200; text-align: left">STAN KONTA: <%= konReady%> </a>
+                                
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <%}%>
+                                
+
+
+                                <%
+                                    if (role==0) {
+                                %> 
+                                <li class="nav-item">
+                            <a class="nav-link" href="logowanie.jsp" style="color:#fff200"><img src="https://i.imgur.com/edtWQhU.png" style="width:16px; height:16px"> LOGOWANIE </a>
+                             <li class="nav-item">
+                            <a class="nav-link" href="rejestracja.jsp" style="color:#fff200"><img src="https://i.imgur.com/uGFdiH6.png" style="width:16px; height:16px"> REJESTRACJA</a>
+                        </li>
+                                </li>
+
+                                <%}%>
+                                <%
+
+                                    Connection conn = null;
+                                    Statement stat = null;
+                                    ResultSet res = null;
+
+
+                                %>
+                                <%                         if (role!=0) {%>
+                               
+                                      <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#343a40; border:0px; color:#FFF200;  text-decoration: none"><img src="https://i.imgur.com/OEVzkTy.png" style="width:16px; height:16px">  KONTO 
+                                  </button>
+                                    <div class="dropdown-menu" style="background-color:#343a40; border:0px; color:#FFF200" >
+                                            <% 
+                                            String kon=session.getAttribute("konto").toString();
+                                            Double kont=Double.parseDouble(kon);
+                                            String konReady=String.format("%.2f", kont);%>
+                                        <a class="dropdown-item"   style="background-color:#343a40; border:0px; color:#FFF200; text-align: left">STAN KONTA: <%= konReady%> </a>
+										<a class="dropdown-item" href="historiaKupon.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"> Historia zakładów</a>
+					   <a class="dropdown-item" href="AdresAdmin.jsp"  style="background-color:#343a40; border:0px; color:#FFF200; text-align: left"> Zmień adres </a><hr style="border-color: white">
+                                        <a class="dropdown-item" href="wyloguj.jsp" style="background-color:#343a40; border:0px; color:white; font-weight: bold; text-align: center">WYLOGUJ  <img src="https://i.imgur.com/wTK8PNF.png" style="width:16px; height:16px">  </a>
+
+                                    </div>
+                                </div>
+
+
+                                <%}}
+
+
+            catch(Exception e){       
+                out.println("Something went wrong !! Please try again");       
+            }%>
 
 
                     </ul>
@@ -100,73 +232,6 @@
         </nav>
 
 
-        <!-- Carousel ================================================== -->
-
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/tp3oTPN.jpg" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';"><img src="https://i.imgur.com/s7qhnfH.png" style="width:30px; height:30px"> PIŁKA NOŻNA</h3>
-
-                        <a href="#" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >ZDARZENIA</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">BONUS NA START</h3>
-                        <p>Odbierz bonus przy pierwszej rejestracji!</p>
-                        <a href="rejestracja.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/rmh6zfb.png" alt="2">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">KOSZYKARSKI BONUS</h3>
-                        <p>Koszykarski bonus co tydzień!</p>
-                        <a href="promocje.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/Z2b9l2e.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">SPORTY WIRTUALNE</h3>
-                        <p>Graj całą dobę!</p>
-                        <a href="sportyWirt.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/ANjX7O1.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">RANKING SPECJALNY</h3>
-                        <p>Wygraj bilety na mecze reprezentacji!</p>
-                        <a href="promocje.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
 
 
         <!-- Page Content -->
@@ -175,28 +240,13 @@
             <div class="row" >
 
                 <div class="col-lg-2">
-                    <!--   <h1 class="my-4"  >SPORTY</h1> -->
+                    
                     <div class="list-group">
-                        <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">SPORTY</a>
-                        <!-- 
-                        <a href="pilkanozna.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PIŁKA NOŻNA</a>
-                       
-                        <a href="pilkareczna.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PIŁKA RĘCZNA</a>
-                        <a href="koszykowka.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">KOSZYKÓWKA</a>
-                        <a href="hokej.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">HOKEJ</a>
-                        <a href="tennis.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">TENNIS</a>
-                        <a href="baseball.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">BASEBALL</a>
-                        -->
-
-                        <!--  <div class="sidenav"> -->
-                        <!--   <button class="list-group-item"   style="background-color: #343a40; color:#fff200; border-color:#343a40; list-style-type: none;"></button> -->
-
-
-
-
-
+                        <a  class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;"><img src="https://i.imgur.com/U3K1QeE.png" style="width:24px; height:24px; float: left"> SPORTY  </a>
+                        
                         <%
-
+                            Wyd wyd;
+                            Wyds wydList = new Wyds();
                             ArrayList list = new ArrayList();
                             ArrayList sublist = new ArrayList();
                             try {
@@ -214,9 +264,8 @@
 
                         %>
 
-                        <div class="list-group-item 1"   style="background-color: #343a40; color:#fff200; text-align: left; list-style-type: none;cursor:pointer ">
-                            <li><%= rs1.getString("nazwa")%>
-                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="false"></span>
+                        <div class="list-group-item 1"   style="background-color: #343a40; color:#fff200; text-align: left;font-size: 15px; list-style-type: none;cursor:pointer ">
+                            <li><%= rs1.getString("nazwa")%><img src="https://i.imgur.com/NsYmMBO.png" style="width:16px; height:16px; float: right">
                         </div>
 
                         <ul class="list-group-item" style="background-color: #343a40; border: 0px; color:#343a40; border-color:#343a40; list-style-type: none ; 
@@ -231,14 +280,14 @@
 
 
                             <li>
-                                <div  class="list-group-item 2" style="background-color: #fff200;text-align: left; color: #343a40; width: 100%;cursor:pointer">
+                                <div  class="list-group-item 2" style="background-color: #fff200;text-align: left;font-size: 15px; color: #343a40; width: 100%;cursor:pointer">
                                     <%= (rs2.getString("nazwa") + " (" + rs2.getInt("count") + ")")%>
                                 </div>
                                 <ul class="list-group-item" style="background-color: #fff200; border: 0px; color:#343a40; border-color:#343a40; list-style-type: none; 
                                     display: none; padding-top: 5px;padding-bottom: 5px;padding-right: 0;">
                                     <%
 
-                                        PreparedStatement pst2 = con.prepareStatement("select rg.nazwa, count(*) from Rozgrywki rg join Region r on r.id=rg.region_id join Dyscyplina d on d.id=rg.dyscyplina_id join Wydarzenie w on rg.id=w.rozgrywki_id where d.nazwa=? and r.nazwa=? group by rg.nazwa order by count(*) desc;");
+                                        PreparedStatement pst2 = con.prepareStatement("select rg.nazwa,rg.id, count(*) from Rozgrywki rg join Region r on r.id=rg.region_id join Dyscyplina d on d.id=rg.dyscyplina_id join Wydarzenie w on rg.id=w.rozgrywki_id where d.nazwa=? and r.nazwa=? group by rg.nazwa,rg.id order by count(*) desc;");
                                         pst2.setString(1, rs1.getString("nazwa"));
                                         pst2.setString(2, rs2.getString("nazwa"));
                                         ResultSet rs3 = pst2.executeQuery();
@@ -247,10 +296,14 @@
 
 
                                     <li>
-                                        <div  class="list-group-item" style="background-color: #343a40; color: #fff200; cursor:pointer ">
-                                            <%= (rs3.getString("nazwa") + " (" + rs3.getInt("count") + ")")%>
-                                        </div>
+                                        <form method="post" action="zakladWyszukaj.jsp" >
+                                            <input type="hidden" name="idRozg" value="<%=rs3.getInt("id")%>">
 
+
+                                            <button  type="submit" class="list-group-item" style="background-color: #343a40; color: #fff200;font-size: 13px;text-align: left; cursor:pointer ;width: 100%">
+                                                <%= (rs3.getString("nazwa") + " (" + rs3.getInt("count") + ")")%>
+                                            </button>
+                                        </form>
                                     </li>
                                     <%
                                         }
@@ -279,17 +332,13 @@
                     </div>
                     <br><br>
                     <div class="list-group">
-                        <a href="#" class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">INFORMACJE</a>
+                        <a  class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">INFORMACJE</a>
                         <a href="pomoc.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">KONTAKT</a>
                         <a href="regulamin.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">REGULAMIN</a>
-                        <a href="platnosci.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PŁATNOŚCI</a>
-                        <a href="promocje.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">PROMOCJE</a>
-                        <a href="statystyki.jps" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">STATYSTYKI</a>
-                        <a href="sprzaklad.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">SPRAWDŹ ZAKŁAD</a>
-                        <a href="wyiki.jsp" class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;">WYNIKI</a>
-
+                       
                     </div>
                 </div>
+
 
 
                 <!-- /.col-lg-3 -->
@@ -321,7 +370,7 @@
 
                             while (rs5.next()) {
                     %>
-                    <div style="background-color: #fff200; color:#343a40; margin: 1px; margin-bottom: 5px; padding: 5px">
+                    <div style="background-color: #fff200; color:#343a40; margin: 1px; margin-bottom: 5px; padding: 5px;border-radius: 5px">
                         <h2 class="card-title" style="font-weight: bold"><%= rs5.getString("wnazwa")%></h2>
 
                         <%
@@ -353,7 +402,7 @@
         <%
             }
         %>
-        <div style="background-color: #343a40; color:#fff200; margin: 1px;margin-bottom: 5px; padding: 5px">
+        <div style="background-color: #343a40; color:#fff200; margin: 1px;margin-bottom: 5px; padding: 5px; border-radius: 4px">
             <h3 class="card-title" style="font-weight: bold"><%= rs4.getString("gtnazwa")%></h3>
             <%
                 }
@@ -363,9 +412,9 @@
 
 
             %>
-            <div class = "row" style="background-color: blue; margin: 1px;margin-bottom: 5px; padding: 5px">
+            <div class = "row" style="background-color: black; margin: 1px;margin-bottom: 5px; padding: 5px;border-radius: 3px">
                 <div class="col-sm-3">
-                    <div class="col-sm-12 " style="background-color: orange;">
+                    <div class="col-sm-12 " >
                         <h6 class="card-title" style="font-weight: bold"><%= rs4.getString("tznazwa")%></h6>
                     </div>
                 </div>
@@ -390,14 +439,14 @@
 
 
                             if (countZ % 2 == 0) {
-                        %><div class="col-sm-6 " ><div class="col-sm-12" style="background-color: orange;">
+                        %><div class="col-sm-6 " ><div class="col-sm-12" >
                                 <form method="post" action="zakKup.jsp" >
                         <input type="hidden" name="idWar" value="<%=rs4.getInt("wzid")%>">
                         <button  type="submit" style="width:100%; background-color: yellow"><h6 class="card-title" style="font-weight: bold"><%= (rs4.getString("wznazwa") + "  " + rs4.getString("wzak"))%></h6></button>
                     </form></div></div>
                                 <%
                                 } else {
-                                %><div class="col-sm-4 " ><div class="col-sm-12"   style="background-color: orange;">
+                                %><div class="col-sm-4 " ><div class="col-sm-12"  >
                                 <form method="post" action="zakKup.jsp" >
                         <input type="hidden" name="idWar" value="<%=rs4.getInt("wzid")%>">
                         <button  type="submit" style="width:100%; background-color: yellow"><h6 class="card-title" style="font-weight: bold"><%= (rs4.getString("wznazwa") + "  " + rs4.getString("wzak"))%></h6></button>
@@ -420,9 +469,14 @@
             <%int kuponOk=0;
             double kursAll=1;
             double kursSin;
+            int zaklad;
+                    String x;
                 for (int i = 0; i < 8; i++) {
-                    
-                    if (session.getAttribute("zak" + (i + 1)) == null) {
+                    zaklad=0;
+                                    if(session.getAttribute("zak" + (i + 1))!=null)
+                                    { x = session.getAttribute("zak" + (i + 1)).toString();
+                                     zaklad = Integer.parseInt(x);}
+                    if (session.getAttribute("zak" + (i + 1)) == null || zaklad==0) {
                     } else {
                         try {
 
@@ -438,7 +492,11 @@
                 <br><%=rs7.getString("tznazwa")%>
                 <br><%=rs7.getString("wznazwa")%>
                 <br>
-            <br>KURS: <%=rs7.getString("wzak")%></div> <%
+            <br><form method="post" action="usunZaklad.jsp">KURS: <%=rs7.getString("wzak")%>
+                        <input type="hidden" name="usunZak" value="<%=(i + 1)%>">
+                        <div style="text-align:right"><button class="btn btn-danger btn-sm" type="submit">USUŃ</button></div> 
+                    </form></div> 
+            <%
                 kursSin=Double.parseDouble(rs7.getString("wzak"));
                 kursAll=kursAll*kursSin;
                 kuponOk++;}
@@ -448,14 +506,14 @@
               }
           }
                 if(kuponOk>0)
-{
+{ String result = String.format("%.2f", kursAll);
 %> <div class="list-group-item" style="background-color: #fff200; color:#343a40; border-color:#343a40;margin-bottom: 5px;font-size: 15px;font-weight: bold;">
-             ILOŚĆ ZDARZEŃ:<%=kuponOk%>    
-            <br>KURS: <%=kursAll%>
+             ILOŚĆ ZDARZEŃ: <%=kuponOk%>    
+            <br>KURS: <%=result%>
             <br><br>
 <form method="post" action="kupon.jsp" >
-                        STAWKA: <input type="number" name="stawka" value="0" style="width:50px; text-align: center">
-                        <input type="hidden" name="kurs" value="<%=kursAll%>" >
+    STAWKA: <input type="number" name="stawka" value="2" min="0" style="width:50px; text-align: center">
+                        
                  <br><br><div style="text-align:center;"><button  type="submit" style=" background-color: black;color:#fff200;"><h6 class="card-title" style="font-weight: bold">ZATWIERDŹ</h6></button></div>
                     </form>
 
