@@ -1,17 +1,16 @@
 <%-- 
-    Document   : index
-    Created on : 2018-03-24, 22:00:16
-    Author     : Edyta
+    Document   : adresZmiana
+    Created on : 2018-09-13, 13:44:08
+    Author     : MatekTSW
 --%>
-<%@page import="bukkk.Wyd"%>
 <%@page import="bukkk.Wyds"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="bukkk.Wyd"%>
 <%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -19,8 +18,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+ 
+        
+        
         <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
-        <title>strona główna</title>
+        <title>baza adresów</title>
         <link rel="shortcut icon" href="https://i.imgur.com/7pcghN2.png"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -42,11 +45,18 @@
                 height: 60px; 
                 width: 150px;
             }
+            
+    .button:focus {
+  text-decoration: none;
+  outline:none;
+  border: none;
+  box-shadow: none;
+}
         </style>
 
     </head>
 
-    <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
+ <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -105,7 +115,7 @@
 
 
 
-                               <%
+                                <%
                                     if (role==1) {
 
                                 %> 
@@ -230,63 +240,14 @@
             </div>
         </nav>
 
-        <!-- Carousel ================================================== -->
-
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">BONUS NA START</h3>
-                        <p>Odbierz bonus przy rejestracji!</p>
-                        <a href="rejestracja.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item ">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/tp3oTPN.jpg" alt="2">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';"><img src="https://i.imgur.com/s7qhnfH.png" style="width:30px; height:30px"> ZAKŁADY SPORTOWE</h3>
-
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >OBSTAWIAJ</a>
-                    </div>
-                </div>
-
-                
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/ANjX7O1.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">RANKING SPECJALNY</h3>
-                        <p>Ranking najlepszych typerów</p>
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
 
 
         <!-- Page Content -->
-        <div class="w-90 p-5" >
+          <div class="w-90 p-5" >
 
             <div class="row">
 
-                <div class="col-lg-2">
+                 <div class="col-lg-2">
                     
                     <div class="list-group">
                         <a  class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;"><img src="https://i.imgur.com/U3K1QeE.png" style="width:24px; height:24px; float: left"> SPORTY  </a>
@@ -299,9 +260,7 @@
                             try {
                                 Class.forName("org.postgresql.Driver");
                                 Connection con = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
-                        %>
-
-                        <%
+                        
                             String query1 = "select distinct d.nazwa, d.id from Dyscyplina d join Rozgrywki rg on d.id=rg.dyscyplina_id join Wydarzenie w on rg.id=w.rozgrywki_id order by d.id";
                             Statement st1 = con.createStatement();
                             ResultSet rs1 = st1.executeQuery(query1);
@@ -387,48 +346,125 @@
                 </div>
 
 
-                <!-- /.col-lg-3 -->
 
-                <div class="col-lg-3">
+                 <div class="col-lg-9">
+
+                         <%  
+                                    try {
+                request.setCharacterEncoding("UTF-8");
+                String msc = request.getParameter("msc");
+                String kp = request.getParameter("postalcode");
+                String ulica = request.getParameter("ulica");
+                String nrd = request.getParameter("nrdomu");
+                String nrm = request.getParameter("nrmieszkania");
+                String userid = session.getAttribute("user_name").toString();
+                   Class.forName("org.postgresql.Driver");
+                            Connection connectionn = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");     
+                
+                Statement st = connectionn.createStatement();
+
+                                            int q = st.executeUpdate("insert into adres(miejscowosc, kod_pocztowy,ulica,nr_domu,nr_mieszkania) values "
+                                                    + "('" + msc + "','" + kp + "','" + ulica + "','"  + nrd + "','"   + nrm + "' )");
+                                            if (q > 0) {
+                                            PreparedStatement pstnn = connectionn.prepareStatement("SELECT a.id  FROM adres a  WHERE a.miejscowosc=? AND a.kod_pocztowy=? AND a.ulica=? AND nr_domu=? AND nr_mieszkania=?");
+                pstnn.setString(1, msc);
+                pstnn.setString(2, kp);
+                pstnn.setString(3, ulica);
+                pstnn.setString(4, nrd);
+                pstnn.setString(5, nrm);
+                ResultSet rssss = pstnn.executeQuery();
+                if (rssss.next()) {
+                                     PreparedStatement ps9 = connectionn.prepareStatement("UPDATE uzytkownik SET adres_id=? WHERE login=?");
+                                                ps9.setInt(1, rssss.getInt("id"));
+                ps9.setString(2, userid);
+                int z = ps9.executeUpdate();
+
+                                                if (z > 0) {%>
+                <div class="alert alert-success" role="alert">Adres został zmieniony</div>
+                <%}
+                }}
+else{%>
+                <div class="alert alert-warning" role="alert">Prawdopodobnie coś poszło nie tak!!!</div><%}
+                
+                
+               
+
+                PreparedStatement pstn = connectionn.prepareStatement("SELECT a.miejscowosc, a.kod_pocztowy,a.ulica,a.nr_domu,a.nr_mieszkania  FROM adres a join uzytkownik u on a.id=u.adres_id WHERE u.login=? ");
+                pstn.setString(1, userid);
+                
+
+                ResultSet rsss = pstn.executeQuery();
+                if (rsss.next()) {
+
+                   
                     
+                %>
+                    <div>
+                        <h3 style="font-family: 'Audiowide'; color:#fff200; font-weight:bold">WPROWADŹ ADRES</h3>
+                        <form name="form" method="post" action="adresZmiana.jsp" id="form" onsubmit="return validate()" novalidate>
 
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">BONUS POWITALNY 100</h3>
-                            <p class="card-text">Zarejestruj się, a na start twoje konto będzie miało juz 100 punktów, dzięki którym możesz rozpocząć rywalizację z innymi o miano najlepszego typera :)</p>
-                            <a href="rejestracja.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                        </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+
+                                    <label style="color:white"> Miejscowość</label>
+                                    <input type="text" name="msc" class="form-control" style="width: 300px;"required value="<%=rsss.getString("miejscowosc")%>">
+
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+
+                                    <label style="color:white">Kod pocztowy</label>
+                                    <input type="text" name="postalcode" class="form-control" style="width: 300px;"required value="<%=rsss.getString("kod_pocztowy")%>">
+
+                                </div>
+                            </div>
+                         
+                            <div class="control-group form-group">
+                                <div class="controls">
+
+                                    <label style="color:white">Ulica</label>
+                                    <input type="text" name="ulica" class="form-control" style="width: 300px;"required value="<%=rsss.getString("ulica")%>">
+
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+
+                                    <label style="color:white">Numer domu</label>
+                                    <input type="number" name="nrdomu" class="form-control" style="width: 300px;"required value="<%=rsss.getString("nr_domu")%>">
+
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+
+                                    <label style="color:white">Numer mieszkania</label>
+                                    <input type="text" name="nrmieszkania" class="form-control" style="width: 300px;"required value="<%=rsss.getString("nr_mieszkania")%>">
+
+                                </div>
+                            </div>
+                            
+<%}} catch(Exception e){       
+                out.println("Something went wrong !! Please try again");       
+            }
+%>
+
+
+
+
+
+                            
+                            <!-- For success/fail messages -->
+                            <button type="submit" value="Register" class="btn btn-primary" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; ">ZAPISZ</button>
+
+                        </form>
+                        <br>
+                            
                     </div>
-                    <!-- /.card -->
-
-                    
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/aUNhrzI.jpg" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">RÓŻNORODNE DYSCYPLINY</h3>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/UHR9CdL.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">NAJWAŻNIEJSZE IMPREZY SPORTOWE</h3>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
+                   
 
                 </div>
-                <!-- /.col-lg-9 -->
 
             </div>
 
@@ -451,7 +487,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     var dropdown = document.getElementsByClassName("list-group-item 1");
     var i;
 
@@ -485,7 +521,7 @@
         });
     }
 
-</script>
+</script> 
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">

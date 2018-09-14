@@ -1,0 +1,124 @@
+CREATE TABLE uprawnienia
+(
+  id smallint NOT NULL,
+  nazwa character varying(20) NOT NULL,
+  CONSTRAINT pk_uprawnienia PRIMARY KEY (id)
+);
+
+CREATE TABLE grupa_typu
+(
+  id smallint NOT NULL,
+  nazwa character varying(20) NOT NULL,
+  CONSTRAINT pk_grupa PRIMARY KEY (id)
+);
+
+CREATE TABLE dyscyplina
+(
+  id smallint NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  CONSTRAINT pk_dyscyplina PRIMARY KEY (id)
+);
+
+CREATE TABLE region
+(
+  id smallint NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  CONSTRAINT pk_region PRIMARY KEY (id)
+);
+
+CREATE TABLE rodzaj_kuponu
+(
+  id smallint NOT NULL,
+  nazwa character varying(20) NOT NULL,
+  CONSTRAINT pk_rodzaj PRIMARY KEY (id)
+);
+
+CREATE TABLE typ_zdarzenia
+(
+  id smallint NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  grupa_typu_ID smallint REFERENCES grupa_typu (id),
+  CONSTRAINT pk_typ PRIMARY KEY (id)
+);
+
+CREATE TABLE rozgrywki
+(
+  id integer NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  region_ID smallint REFERENCES region (id),
+  dyscyplina_ID smallint REFERENCES dyscyplina (id),
+  CONSTRAINT pk_rozgrywki PRIMARY KEY (id)
+);
+
+CREATE TABLE wydarzenie
+(
+  id bigint NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  data_wydarzenia date NOT NULL,
+  rozgrywki_ID integer REFERENCES rozgrywki (id) NOT NULL,
+  status character varying(20) NOT NULL,
+  CONSTRAINT pk_wydarzenie PRIMARY KEY (id)
+);
+
+CREATE TABLE zdarzenie
+(
+  id bigint NOT NULL,
+  typ_zdarzenia_ID smallint REFERENCES typ_zdarzenia (id) NOT NULL,
+  wydarzenie_ID bigint REFERENCES wydarzenie (id) NOT NULL,
+  status character varying(20) NOT NULL,
+  CONSTRAINT pk_zdarzenie PRIMARY KEY (id)
+);
+
+CREATE TABLE wariant_zdarzenia
+(
+  id bigint NOT NULL,
+  zdarzenie_ID bigint REFERENCES zdarzenie (id) NOT NULL,
+  nazwa character varying(50) NOT NULL,
+  aktualny_kurs numeric NOT NULL,
+  status character varying(20) NOT NULL,
+  CONSTRAINT pk_wariant PRIMARY KEY (id)
+);
+
+CREATE TABLE adres
+(
+  id smallint NOT NULL,
+  miejscowosc character varying(50) NOT NULL,
+  kod_pocztowy character varying(6) NOT NULL,
+  ulica character varying(50) NOT NULL,
+  nr_domu character varying(5) NOT NULL,
+  nr_mieszkania character varying(5) NOT NULL,
+  CONSTRAINT pk_adres PRIMARY KEY (id)
+);
+
+CREATE TABLE uzytkownik
+(
+  login character varying(30) NOT NULL,
+  haslo character varying(30) NOT NULL,
+  imie character varying(30) NOT NULL,
+  nazwisko character varying(30) NOT NULL,
+  e_mail character varying(30) NOT NULL,
+  telefon character varying(11) NOT NULL,
+  konto numeric NOT NULL,
+  adres_ID smallint REFERENCES adres (id) NOT NULL,
+  uprawnienia_ID smallint REFERENCES uprawnienia (id) NOT NULL,
+  CONSTRAINT pk_user PRIMARY KEY (login)
+);
+
+CREATE TABLE kupon
+(
+  id bigint NOT NULL,
+  uzytkownik_ID character varying(30) REFERENCES uzytkownik (login) NOT NULL,
+  stawka_calkowita numeric NOT NULL,
+  data_kuponu date NOT NULL,
+  rodzaj_kuponu_ID smallint REFERENCES rodzaj_kuponu (id) NOT NULL,
+  CONSTRAINT pk_kupon PRIMARY KEY (id)
+);
+
+CREATE TABLE kupon_szczegol
+(
+  id bigint  NOT NULL,
+  kupon_ID bigint REFERENCES kupon (id) NOT NULL,
+  wariant_ID bigint REFERENCES wariant_zdarzenia (id) NOT NULL,
+  kurs numeric NOT NULL,
+  CONSTRAINT pk_kupon_szcz PRIMARY KEY (id)
+);

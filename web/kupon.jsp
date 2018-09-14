@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 2018-03-24, 22:00:16
-    Author     : Edyta
+    Document   : kupon
+    Created on : 2018-09-11, 17:32:32
+    Author     : MatekTSW
 --%>
 <%@page import="bukkk.Wyd"%>
 <%@page import="bukkk.Wyds"%>
@@ -12,15 +12,14 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
-        <title>strona główna</title>
+        <title>płatności</title>
         <link rel="shortcut icon" href="https://i.imgur.com/7pcghN2.png"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -31,24 +30,13 @@
                 width: 100%;
                 height: 100%;
             }
-
-            .btn-2 {
-                background-color: red;
-                color: white; 
-                font-weight: bold;
-                font-size:20px;
-                float: center; 
-                text-align: center;
-                height: 60px; 
-                width: 150px;
-            }
         </style>
 
     </head>
 
-    <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
+    <body style="background-image: linear-gradient(to right, darkred , darkgrey,darkred,darkgrey,darkred);">
 
-        <!-- Navigation -->
+       <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="index.jsp" style="color:#fff200; font-family: 'Audiowide'; font-size: 20px; "><img src="https://i.imgur.com/s7qhnfH.png" style="width:25px; height:25px"> LV.BET2</a>
@@ -105,7 +93,7 @@
 
 
 
-                               <%
+                                <%
                                     if (role==1) {
 
                                 %> 
@@ -230,55 +218,14 @@
             </div>
         </nav>
 
-        <!-- Carousel ================================================== -->
+       
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">BONUS NA START</h3>
-                        <p>Odbierz bonus przy rejestracji!</p>
-                        <a href="rejestracja.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                    </div>
-                </div>
 
-                <div class="carousel-item ">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/tp3oTPN.jpg" alt="2">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';"><img src="https://i.imgur.com/s7qhnfH.png" style="width:30px; height:30px"> ZAKŁADY SPORTOWE</h3>
 
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >OBSTAWIAJ</a>
-                    </div>
-                </div>
 
-                
 
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/ANjX7O1.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">RANKING SPECJALNY</h3>
-                        <p>Ranking najlepszych typerów</p>
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
 
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+
 
 
         <!-- Page Content -->
@@ -386,47 +333,122 @@
                     </div>
                 </div>
 
-
                 <!-- /.col-lg-3 -->
 
-                <div class="col-lg-3">
-                    
+                <div class="col-lg-9">
+                    <%
 
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">BONUS POWITALNY 100</h3>
-                            <p class="card-text">Zarejestruj się, a na start twoje konto będzie miało juz 100 punktów, dzięki którym możesz rozpocząć rywalizację z innymi o miano najlepszego typera :)</p>
-                            <a href="rejestracja.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
+                        try {
+                            request.setCharacterEncoding("UTF-8");
+                            double stawka = Double.parseDouble(request.getParameter("stawka"));
+                            String x;
+                            String user;
+                            int licz = 0;
+                            int rodz = 1;
+                            double konto;
+                            int[] idZak = new int[8];
+                            int[] idWar = new int[8];
+                            double[] kurs = new double[8];
 
-                    
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/aUNhrzI.jpg" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">RÓŻNORODNE DYSCYPLINY</h3>
+                            if (session.getAttribute("user_name") == null) {%>
+                    <div class="alert alert-warning" role="alert">Nie jesteś zalogowany</div><%
+                    } else {
+                        user = String.valueOf(session.getAttribute("user_name"));
+                        Class.forName("org.postgresql.Driver");
+                        Connection connection = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
 
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/UHR9CdL.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">NAJWAŻNIEJSZE IMPREZY SPORTOWE</h3>
+                        for (int i = 0; i < 8; i++) {
+                            if (session.getAttribute("zak" + (i + 1)) != null) {
+                                x = session.getAttribute("zak" + (i + 1)).toString();
+                                idWar[i] = Integer.parseInt(x);
+                            } else {
+                                idWar[i] = 0;
+                            }
+                            if (idWar[i] != 0) {
+                                licz++;
+                                PreparedStatement pst = connection.prepareStatement("SELECT wz.zdarzenie_id as zid,wz.aktualny_kurs as wzak  FROM wariant_zdarzenia wz WHERE wz.id=?");
+                                pst.setInt(1, idWar[i]);
 
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
+                                ResultSet rs = pst.executeQuery();
+                                if (rs.next()) {
+                                    idZak[i] = rs.getInt("zid");
+                                    kurs[i] = Double.parseDouble(rs.getString("wzak"));
+                                }
+                            } else {
+                                idZak[i] = 0;
+                                kurs[i] = 0;
+                            }
+                        }
+                        int zakOK = 1;
+                        for (int j = 0; j < 8; j++) {
+                            for (int k = 0; k < 8; k++) {
+                                if ((idZak[j] == 0) || (idZak[k] == 0) || (j == k)) {
+                                } else {
+                                    if (idZak[j] == idZak[k]) {
+                                        zakOK = 0;
+                                    }
+                                }
+                            }
+                        }
+                        if (zakOK == 0) {%>
+                    <div class="alert alert-warning" role="alert">Usuń potwarzające się wydarzenie!!!</div><%} else {
+                        x = session.getAttribute("konto").toString();
+                        konto = Double.parseDouble(x);
+                        if ((konto < stawka) || (stawka < 0.1)) {%><div class="alert alert-warning" role="alert">Za mała wartość na koncie lub za mała stawka!!!</div><%} else {
+                                            if (licz > 1) {
+                                                rodz = 2;
+                                            }
 
+                                            Statement st = connection.createStatement();
+
+                                            int q = st.executeUpdate("insert into kupon(uzytkownik_id, rodzaj_kuponu_id,stawka_calkowita) values "
+                                                    + "('" + user + "','" + rodz + "','" + stawka + "' )");
+                                            if (q > 0) {
+
+                                                PreparedStatement ps = connection.prepareStatement("UPDATE uzytkownik SET konto=? WHERE login=?");
+                                                ps.setDouble(1, konto - stawka);
+                                                ps.setString(2, user);
+                                                session.setAttribute("konto", konto - stawka);
+                                                int z = ps.executeUpdate();
+
+                                                if (z > 0) {
+                                                    int idKupon;
+                                                    PreparedStatement psts = connection.prepareStatement("SELECT k.id  FROM kupon k  WHERE k.uzytkownik_id=? order by k.id desc");
+                                                    psts.setString(1, user);
+
+                                                    ResultSet rss = psts.executeQuery();
+                                                    if (rss.next()) {
+                                                        idKupon = rss.getInt("id");
+
+                                                        for (int l = 0; l < 8; l++) {
+
+                                                            if (idWar[l]!=0) {
+                                                                Statement st2 = connection.createStatement();
+
+                                            int qw = st2.executeUpdate("insert into kupon_szczegol(kupon_id, wariant_id,kurs) values "
+                                                    + "('" + idKupon + "','" + idWar[l] + "','" + kurs[l] + "' )");
+                                            if (qw > 0) {
+session.setAttribute("zak" + (l + 1), 0);
+
+}
+                                                            }
+                                                        }
+%>
+                <div class="alert alert-success" role="alert">Zawarto zakład!!!</div>
+                <%
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+                            } catch (Exception e) {
+                                out.println("Something went wrong !! Please try again");
+                            }
+                    %>
                 </div>
                 <!-- /.col-lg-9 -->
 
@@ -447,11 +469,8 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
+       
+        <script type="text/javascript">
     var dropdown = document.getElementsByClassName("list-group-item 1");
     var i;
 
@@ -486,7 +505,7 @@
     }
 
 </script>
-
+        
         <!-- Footer -->
         <footer class="py-5 bg-dark">
             <div class="container">

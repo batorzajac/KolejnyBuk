@@ -3,15 +3,14 @@
     Created on : 2018-03-24, 22:00:16
     Author     : Edyta
 --%>
-<%@page import="bukkk.Wyd"%>
 <%@page import="bukkk.Wyds"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="bukkk.Wyd"%>
 <%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -20,7 +19,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
-        <title>strona główna</title>
+        <title>regulamin</title>
         <link rel="shortcut icon" href="https://i.imgur.com/7pcghN2.png"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -46,7 +45,7 @@
 
     </head>
 
-    <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
+ <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -105,7 +104,7 @@
 
 
 
-                               <%
+                                <%
                                     if (role==1) {
 
                                 %> 
@@ -230,63 +229,17 @@
             </div>
         </nav>
 
-        <!-- Carousel ================================================== -->
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">BONUS NA START</h3>
-                        <p>Odbierz bonus przy rejestracji!</p>
-                        <a href="rejestracja.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                    </div>
-                </div>
 
-                <div class="carousel-item ">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/tp3oTPN.jpg" alt="2">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';"><img src="https://i.imgur.com/s7qhnfH.png" style="width:30px; height:30px"> ZAKŁADY SPORTOWE</h3>
-
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >OBSTAWIAJ</a>
-                    </div>
-                </div>
-
-                
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/ANjX7O1.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">RANKING SPECJALNY</h3>
-                        <p>Ranking najlepszych typerów</p>
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+       
 
 
         <!-- Page Content -->
-        <div class="w-90 p-5" >
+          <div class="w-90 p-5" >
 
             <div class="row">
 
-                <div class="col-lg-2">
+                 <div class="col-lg-2">
                     
                     <div class="list-group">
                         <a  class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;"><img src="https://i.imgur.com/U3K1QeE.png" style="width:24px; height:24px; float: left"> SPORTY  </a>
@@ -387,47 +340,58 @@
                 </div>
 
 
+
                 <!-- /.col-lg-3 -->
 
-                <div class="col-lg-3">
-                    
+              <div class="col-lg-7">
+                  <h3 style="font-family: 'Audiowide'; color:#fff200; font-weight:bold">ROZDZIAŁ 1</h3> <h4 style="color:#ffffff"> §1 Postanowienia wstępne</h4><br>
+                  <p style="color:white">  Organizatorem zakładów wzajemnych-bukmacherskich przez sieć Internet na stronie lvbet2.pl jest firma LVBET2 Zakłady Bukmacherskie 
+                      spółka z o.o. (dalej zwana “Spółką”) z siedzibą w Katowicach, przy ulicy Melchiora Wańkowicza 3, wpisana do Rejestru Przedsiębiorców Krajowego 
+                      Rejestru Sądowego pod numerem 0000534588, przez Sąd Rejonowy Katowice - Wschód w Katowicach, Wydział VIII Gospodarczy - KRS, NIP: 9542751776, 
+                      REGON: 360297047. Spółka posiada zezwolenie ministra właściwego do spraw finansów publicznych z dnia 13 maja 2016 roku o numerze PS4.6831.9.2016.EQK na urządzanie 
+                      zakładów wzajemnych-bukmacherskich przez sieć Internet na stronie lvbet.pl.
+                      
+<p style="color:white"> Niniejszy Regulamin (dalej zwany “Regulaminem”) został sporządzony zgodnie z Ustawą z dnia 19 listopada 2009 roku o grach hazardowych,
+    (zwana dalej “Ustawą”) i wszedł w życie w dniu jego zatwierdzenia przez ministra właściwego do spraw finansów publicznych. Wszystkie zakłady wzajemne-bukmacherskie organizowane 
+    przez sieć Internet na stronie lvbet.pl są podporządkowane zasadom określonym w niniejszym Regulaminie.
+Zakłady wzajemne-bukmacherskie przez sieć Internet organizowane przez Spółkę dostępne są wyłącznie na stronie internetowej lvbet.pl, która to strona może być wyświetlana 
+w różnych wersjach graficznych jako np. m.lvbet.pl (strona lvbet.pl zoptymalizowana graficznie dla urządzeń mobilnych), highcontrast.lvbet.pl (strona lvbet.pl o wysokim 
+kontraście dla Klientów niedowidzących), które działają jako jedna strona lvbet.pl i są obsługiwane na lvbet.pl przez serwery Spółki. W zależności od typu używanej przez 
+klienta przeglądarki internetowej strona może być wyświetlana jako https://lvbet.pl, www.lvbet.pl, secure://lvbet.pl itp.</p>
 
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">BONUS POWITALNY 100</h3>
-                            <p class="card-text">Zarejestruj się, a na start twoje konto będzie miało juz 100 punktów, dzięki którym możesz rozpocząć rywalizację z innymi o miano najlepszego typera :)</p>
-                            <a href="rejestracja.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
+<p style="color:white"> Zakłady wzajemne-bukmacherskie organizowane przez sieć Internet na stronie lvbet.pl przez Spółkę można zawierać wyłącznie na te zdarzenia, które są dostępne na tej stronie internetowej.</p>
 
-                    
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/aUNhrzI.jpg" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">RÓŻNORODNE DYSCYPLINY</h3>
+<p style="color:white"> Zaakceptowanie niniejszego Regulaminu jest warunkiem niezbędnym dla otwarcia LVkonta.</p>
 
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/UHR9CdL.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">NAJWAŻNIEJSZE IMPREZY SPORTOWE</h3>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
-                </div>
+<p style="color:white"> Każdy z Klientów ma prawo i obowiązek zapoznać się z postanowieniami niniejszego Regulaminu i ma obowiązek ich przestrzegać. Nieznajomość lub niezrozumienie Regulaminu nie powoduje, że zakład staje się nieważny, a przy rozstrzyganiu ewentualnych sporów wynikających z zakładów nie można brać pod uwagę okoliczności, że Klient nie zna postanowień Regulaminu.<p>
+<p style="color:white"> Przed zawarciem zakładu Klient może skonsultować się z uprawnionymi pracownikami Spółki odnośnie wyjaśnienia znaczenia poszczególnych zapisów Regulaminu pod adresem https://lvbet.pl/pomoc/. Wyjaśnienia otrzymane od pracowników mają jedynie charakter informacyjny. Dokonanie zawarcia zakładu oznacza, że Klient przyjął do wiadomości oraz zaakceptował zasady opisane w Regulaminie niezależnie od stopnia ich zrozumienia. Spółka nie ponosi odpowiedzialności za pomyłki Klienta wynikające z nieznajomości lub niezrozumienia postanowień Regulaminu.</p>
+<p style="color:white"> Spółka zastrzega sobie prawo do odmowy zawarcia umowy z Klientem bez podania powodu.<p><br>
+<p style="color:white; font-weight: bold"> Przyjęte na potrzeby niniejszego Regulaminu definicje pojęć:<p>
+<p style="color:white"> Spółka - LV BET Zakłady Bukmacherskie spółka z o.o. z siedzibą w Katowicach, przy ulicy Melchiora Wańkowicza 3, wpisana do Rejestru Przedsiębiorców Krajowego Rejestru Sądowego pod numerem 0000534588, przez Sąd Rejonowy Katowice - Wschód w Katowicach, Wydział VIII Gospodarczy - KRS, NIP: 9542751776, REGON: 360297047</p> 
+<p style="color:white"> Regulamin – zatwierdzony przez ministra właściwego do spraw finansów publicznych Regulamin zakładów wzajemnych – bukmacherskich organizowanych przez sieć Internet na stronie internetowej lvbet.pl przez “LV BET Zakłady Bukmacherskie” spółka z o.o. z siedzibą w Katowicach
+<p style="color:white"> Zakład - zakład wzajemny-bukmacherski organizowany przez Spółkę i zawierany przez sieć Internet na stronie lvbet.pl</p>
+<p style="color:white"> Zasady odpowiedzialnej gry – zasady określone szerzej w odrębnym Regulaminie, zatwierdzonym przez ministra właściwego do spraw finansów publicznych, obowiązujące Klientów i Spółkę na stronie internetowej lvbet.pl</p>
+<p style="color:white"> Punkt stacjonarny – „naziemny” punkt przyjmowania przez Spółkę zakładów wzajemnych-bukmacherskich, działający na podstawie odrębnego zezwolenia ministra właściwego do spraw finansów publicznych </p>
+<p style="color:white"> Konto – dowolny rachunek prowadzony na rzecz Klienta przez akceptowanych przez Spółkę dostawców usług płatniczych, o których mowa w art. 4 ust. 2 pkt 1-4, 6 i 9 Ustawy z dnia 19 sierpnia 2011 r. o usługach płatniczych. </p> 
+ <br>
+    <h3 style="font-family: 'Audiowide'; color:#fff200; font-weight:bold">ROZDZIAŁ 2</h3> <h4 style="color:#ffffff"> §2 Postanowienia ogólne</h4><br>
+    <p style="color:white"> Niniejszy Regulamin stanowi podstawę do zawarcia zakładów wzajemnych-bukmacherskich przez sieć Internet na stronie lvbet.pl.</p>
+<p style="color:white"> Udział w zakładach wzajemnych-bukmacherskich przez sieć Internet na stronie lvbet.pl mogą brać jedynie osoby fizyczne, które ukończyły 18 lat i skutecznie przeprowadziły proces rejestracji określony w § 5 niniejszego Regulaminu, które dokonują wpłat do Spółki lub wypłat od Spółki za pośrednictwem dostawców usług płatniczych, o których mowa w art. 4 ust. 2 pkt 1-4, 6 i 9 Ustawy z dnia 19 sierpnia 2011 r. o usługach płatniczych.</p>
+<p style="color:white">Zakłady przyjmowane są tylko i wyłącznie na terenie Rzeczypospolitej Polskiej.</p>
+<p style="color:white">Nie mogą zawierać zakładów osoby, wobec których na podstawie ustawy z dnia 6 czerwca 1997 roku Kodeks Karny orzeczono zakaz uczestnictwa w grach hazardowych i osoby wymienione w §5 ust 12 Regulaminu oraz osoby, które dokonały samozablokowania możliwości dokonywania zakładów wzajemnych-bukmacherskich przez sieć Internet na stronie lvbet.pl w okresie samozablokowania, zgodnie z zasadami odpowiedzialnej gry.</p>
+<p style="color:white">Zakłady zawarte przez osoby nieuprawnione będą przez Spółkę unieważnione (stornowane).</p>
+<p style="color:white">Zakłady zawarte z naruszeniem postanowień niniejszego Regulaminu mogą zostać przez Spółkę unieważnione (stornowane). </p>
+<p style="color:white">Klient ma prawo w każdym momencie zamknąć LVkonto bez podania powodu.</p>
+<p style="color:white">W przypadku naruszenia przez Klienta jakiegokolwiek postanowienia niniejszego Regulaminu, Spółka będzie miała prawo zamknąć LVkonto Klienta.</p>
+<p style="color:white">Akceptacja niniejszego Regulaminu oznacza również, iż Klient wyraża zgodę na świadczenie usług drogą elektroniczną oraz wyraża zgodę na przetwarzanie swoich danych osobowych przez Spółkę i przechowywanie ich zgodnie z ustawą z dnia 29 sierpnia 1997r. o ochronie danych osobowych, jak i zgodnie z innymi przepisami prawa.  </p> 
+              
+              
+              
+              
+              
+              
+              </div>
+              
                 <!-- /.col-lg-9 -->
 
             </div>
@@ -451,7 +415,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     var dropdown = document.getElementsByClassName("list-group-item 1");
     var i;
 
@@ -485,7 +449,7 @@
         });
     }
 
-</script>
+</script> 
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">

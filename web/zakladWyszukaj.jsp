@@ -1,18 +1,24 @@
 <%-- 
+    Document   : zakladWyszukaj
+    Created on : 2018-09-11, 18:13:19
+    Author     : MatekTSW
+--%>
+
+  <%@page import="bukkk.Wyd"%>
+<%@page import="bukkk.Wyds"%>
+<%-- 
     Document   : index
     Created on : 2018-03-24, 22:00:16
     Author     : Edyta
 --%>
-<%@page import="bukkk.Wyd"%>
-<%@page import="bukkk.Wyds"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
+
 <%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html;" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -20,10 +26,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
-        <title>strona główna</title>
+
+        <title>piłka nożna</title>
         <link rel="shortcut icon" href="https://i.imgur.com/7pcghN2.png"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
         <style>
             /* Make the image fully responsive */
@@ -46,7 +54,7 @@
 
     </head>
 
-    <body style="background-image: linear-gradient(to right, darkblue , darkcyan,darkblue);">
+    <body style="background-image: linear-gradient(to right, darkred , darkgrey,darkred,darkgrey,darkred);">
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -105,7 +113,7 @@
 
 
 
-                               <%
+                                <%
                                     if (role==1) {
 
                                 %> 
@@ -230,55 +238,8 @@
             </div>
         </nav>
 
-        <!-- Carousel ================================================== -->
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="1">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">BONUS NA START</h3>
-                        <p>Odbierz bonus przy rejestracji!</p>
-                        <a href="rejestracja.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item ">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/tp3oTPN.jpg" alt="2">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';"><img src="https://i.imgur.com/s7qhnfH.png" style="width:30px; height:30px"> ZAKŁADY SPORTOWE</h3>
-
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >OBSTAWIAJ</a>
-                    </div>
-                </div>
-
-                
-
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.imgur.com/ANjX7O1.png" alt="3">
-                    <div class="carousel-caption"> 
-                        <h3 style="font-family: 'Audiowide';">RANKING SPECJALNY</h3>
-                        <p>Ranking najlepszych typerów</p>
-                        <a href="pilkanozna.jsp" class="btn" style="background-color: #fff200; color:black; font-weight: bold; height: 40px; width: 150px; " >WIĘCEJ</a>
-                    </div>
-                </div>
-
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+       
 
 
         <!-- Page Content -->
@@ -387,49 +348,152 @@
                 </div>
 
 
+
                 <!-- /.col-lg-3 -->
 
-                <div class="col-lg-3">
+                <div class="col-lg-8">
+
+                    <% try{
+                        
+                         request.setCharacterEncoding("UTF-8");
+
+                            int idRozg = Integer.parseInt(request.getParameter("idRozg"));
+                        
+                        Class.forName("org.postgresql.Driver");
+                                Connection con2 = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
+                              
+                                
+                                PreparedStatement psttt = con2.prepareStatement("select w.id as wid, w.nazwa as wnazwa, rg.nazwa as rgnazwa, d.nazwa as dnazwa,rg.id as rgid, w.data_wydarzenia, w.status as wstatus from Wydarzenie w join Rozgrywki rg on  rg.id=w.rozgrywki_id join Dyscyplina d on d.id=rg.dyscyplina_id where rg.id=? order by d.id, rg.id,w.data_wydarzenia ");
+                            psttt.setInt(1, idRozg);
+                            ResultSet rs4 = psttt.executeQuery();
                     
+                            
+                            
+                            String edys="";
+                            int ecdedys=0;
+                            int ecderozg=0;
+                            int fecdedys=2;
+                            int fecderozg=2;
+                            String erozg="";
+        while (rs4.next()) {
+if(rs4.getString("wstatus").equals("aktywne"))
+                                {
+                wydList.add(new Wyd(rs4.getString("wnazwa"), rs4.getString("dnazwa"), rs4.getString("rgnazwa"), rs4.getString("data_wydarzenia"), rs4.getInt("wid")));
 
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/afPgOgd.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">BONUS POWITALNY 100</h3>
-                            <p class="card-text">Zarejestruj się, a na start twoje konto będzie miało juz 100 punktów, dzięki którym możesz rozpocząć rywalizację z innymi o miano najlepszego typera :)</p>
-                            <a href="rejestracja.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px; " >REJESTRACJA</a>
+                if (!erozg.equals(rs4.getString("rgnazwa"))) {
+
+                    ecderozg++;
+                    if (fecderozg == ecderozg) {
+                        fecderozg++;
+                    %>
                         </div>
-                    </div>
-                    <!-- /.card -->
+                    <%
+                            }
 
+                        }
+
+                        if (!edys.equals(rs4.getString("dnazwa"))) {
+                            edys = rs4.getString("dnazwa");
+                            ecdedys++;
+                            if (fecdedys == ecdedys) {
+                                fecdedys++;
+                    %>
+                    </div>
+                    <%
+                        }
+                    %>
+                    <div style="background-color:#fff200; margin: 10px; padding: 10px;border-radius: 4px;color: #343a40;">
+                        <h3 class="card-title" style="font-weight: bold"><%= rs4.getString("dnazwa")%></h3>
+                    <%
+                        }
+                        if (!erozg.equals(rs4.getString("rgnazwa"))) {
+                            erozg = rs4.getString("rgnazwa");
+
+                    %>
+                        <div style="background-color: #343a40; margin: 10px; padding: 10px; color:#fff200;border-radius: 3px">
+                            <h4 class="card-title" style="font-weight: bold"><%= rs4.getString("rgnazwa")%></h4>
+                    <%
+                        }
+
+                    %>
+                            <form method="post" action="wydSzczeg.jsp" >
+                        <input type="hidden" name="idWyd" value="<%=rs4.getInt("wid")%>">
+                        <button  type="submit" style="width:100%;background-color: #fff200;color: #000000;"><h6 class="card-title" style="font-weight: bold"><%= rs4.getString("wnazwa")%></h6></button>
+                    </form>
+                             
+                    <%
+                                }}%></div></div><%
+                }catch (Exception e1) {
+                            }
                     
+%>
                 </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/aUNhrzI.jpg" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">RÓŻNORODNE DYSCYPLINY</h3>
 
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card mt-4" style="background-color: #fff200; color:#343a40; border-color:#fff200;">
-                        <img class="card-img-top img-fluid" src="https://i.imgur.com/UHR9CdL.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title" style="font-weight: bold">NAJWAŻNIEJSZE IMPREZY SPORTOWE</h3>
-
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-                            <a href="pilkanozna.jsp" class="btn" style="background-color: red; color:white; font-weight: bold; height: 40px; width: 150px;">WIĘCEJ</a>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
-                </div>
+                
                 <!-- /.col-lg-9 -->
+<div class="col-lg-2" id="jeden">
+    <div style="width:100%;background-color: black">
+        <div class="list-group">
+            <div class="list-group-item active" style="font-weight: bold; background-color: #fff200; color:#343a40; font-size: 20px; border-color:#fff200;">KUPON</div>
+            <%int kuponOk=0;
+            double kursAll=1;
+            double kursSin;
+            int zaklad;
+                    String x;
+                for (int i = 0; i < 8; i++) {
+                    zaklad=0;
+                                    if(session.getAttribute("zak" + (i + 1))!=null)
+                                    { x = session.getAttribute("zak" + (i + 1)).toString();
+                                     zaklad = Integer.parseInt(x);}
+                    if (session.getAttribute("zak" + (i + 1)) == null || zaklad==0) {
+                    } else {
+                        try {
 
+                            Class.forName("org.postgresql.Driver");
+                            Connection con3 = DriverManager.getConnection("jdbc:postgresql://sigma.pwsz.krosno.pl:5432/buk", "postgres", "26!D$196eF85");
+                            PreparedStatement pst3 = con3.prepareStatement("select wz.nazwa as wznazwa, w.nazwa as wnazwa, wz.aktualny_kurs as wzak, tz.nazwa as tznazwa from wariant_zdarzenia wz join zdarzenie z on z.id=wz.zdarzenie_id join wydarzenie w on w.id=z.wydarzenie_id join typ_zdarzenia tz on tz.id=z.typ_zdarzenia_id where wz.id=? ");
+                            pst3.setInt(1, (Integer) session.getAttribute("zak" + (i + 1)));
+                            ResultSet rs7 = pst3.executeQuery();
+                            while (rs7.next()) {
+            %> <div class="list-group-item" style="background-color: #343a40; color:#fff200; border-color:#343a40;margin-bottom: 5px;font-size: 12px;">
+                <%=rs7.getString("wnazwa")%>
+                <br>
+                <br><%=rs7.getString("tznazwa")%>
+                <br><%=rs7.getString("wznazwa")%>
+                <br>
+            <br><form method="post" action="usunZaklad.jsp">KURS: <%=rs7.getString("wzak")%>
+                        <input type="hidden" name="usunZak" value="<%=(i + 1)%>">
+                        <div style="text-align:right"><button class="btn btn-danger btn-sm" type="submit">USUŃ</button></div> 
+                    </form></div> 
+            <%
+                kursSin=Double.parseDouble(rs7.getString("wzak"));
+                kursAll=kursAll*kursSin;
+                kuponOk++;}
+
+            } catch (Exception e1) {%>xDDDD <%=i%><%
+                  }
+              }
+          }
+                if(kuponOk>0)
+{ String result = String.format("%.2f", kursAll);
+%> <div class="list-group-item" style="background-color: #fff200; color:#343a40; border-color:#343a40;margin-bottom: 5px;font-size: 15px;font-weight: bold;">
+             ILOŚĆ ZDARZEŃ: <%=kuponOk%>    
+            <br>KURS: <%=result%>
+            <br><br>
+<form method="post" action="kupon.jsp" >
+    STAWKA: <input type="number" name="stawka" value="2" min="0" style="width:50px; text-align: center">
+                        
+                 <br><br><div style="text-align:center;"><button  type="submit" style=" background-color: black;color:#fff200;"><h6 class="card-title" style="font-weight: bold">ZATWIERDŹ</h6></button></div>
+                    </form>
+
+</div> <%
+}
+            %>
+
+
+        </div>
+    </div>
+</div>
             </div>
 
         </div>
@@ -451,41 +515,46 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript">
-    var dropdown = document.getElementsByClassName("list-group-item 1");
-    var i;
 
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
+
+        <script type="text/javascript">
+            var dropdown = document.getElementsByClassName("list-group-item 1");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
             }
-        });
-    }
 
-</script>   
+        </script>   
 
-<script type="text/javascript">
-    var dropdown = document.getElementsByClassName("list-group-item 2");
-    var i;
+        <script type="text/javascript">
+            var dropdown = document.getElementsByClassName("list-group-item 2");
+            var i;
 
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
             }
-        });
-    }
 
-</script>
+        </script> 
+
+
+
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">
